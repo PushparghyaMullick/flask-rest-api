@@ -27,7 +27,8 @@ class UserRegister(MethodView):
             db.session.commit()
         except IntegrityError:
             abort(400, message="User already exists, login instead.")
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
+            print(f"SQLAlchemy Error: {e}")
             abort(500, message="An error occurred while registering user.")
 
         return user, 201
